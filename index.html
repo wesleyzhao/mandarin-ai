@@ -93,11 +93,21 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 1000;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #1a365d;
         }
 
         .nav-container {
@@ -254,13 +264,16 @@
         }
 
         .hero-text h1 {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
+            color: #1a202c;
         }
 
         .hero-text p {
             font-size: 1.125rem;
-            margin-bottom: 32px;
-            max-width: 500px;
+            margin-bottom: 36px;
+            max-width: 480px;
+            color: #4a5568;
+            line-height: 1.75;
         }
 
         .hero-buttons {
@@ -308,51 +321,52 @@
 
         /* Terminal */
         .terminal {
-            background: #0d1117;
-            border-radius: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            background: #1a202c;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            max-width: 600px;
+            max-width: 520px;
             width: 100%;
             margin: 0 auto;
-            height: 220px;
-            min-height: 220px;
-            max-height: 220px;
+            height: 200px;
+            min-height: 200px;
+            max-height: 200px;
+            border: 1px solid #2d3748;
         }
 
         @media (max-width: 640px) {
             .terminal {
-                height: 180px;
-                min-height: 180px;
-                max-height: 180px;
+                height: 170px;
+                min-height: 170px;
+                max-height: 170px;
             }
         }
 
         .terminal-header {
-            background: #161b22;
-            padding: 12px 16px;
+            background: #2d3748;
+            padding: 10px 14px;
             display: flex;
-            gap: 8px;
-            height: 40px;
+            gap: 6px;
+            height: 36px;
             flex-shrink: 0;
         }
 
         .terminal-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
         }
 
-        .terminal-dot.red { background: #ff5f56; }
-        .terminal-dot.yellow { background: #ffbd2e; }
-        .terminal-dot.green { background: #27c93f; }
+        .terminal-dot.red { background: #fc8181; }
+        .terminal-dot.yellow { background: #f6e05e; }
+        .terminal-dot.green { background: #68d391; }
 
         .terminal-content {
-            padding: 20px;
+            padding: 18px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
-            color: #22d3ee;
-            height: 180px;
+            color: #63b3ed;
+            height: 164px;
             line-height: 1.6;
             overflow: hidden;
         }
@@ -360,7 +374,7 @@
         @media (max-width: 640px) {
             .terminal-content {
                 font-size: 0.7rem;
-                height: 140px;
+                height: 134px;
                 padding: 14px;
                 line-height: 1.5;
             }
@@ -371,22 +385,22 @@
         }
 
         .terminal-prompt {
-            color: #7c3aed;
+            color: #a0aec0;
         }
 
         .terminal-command {
-            color: #22d3ee;
+            color: #63b3ed;
         }
 
         .terminal-response {
-            color: #4ade80;
+            color: #68d391;
         }
 
         .cursor {
             display: inline-block;
-            width: 10px;
-            height: 18px;
-            background: #22d3ee;
+            width: 8px;
+            height: 16px;
+            background: #63b3ed;
             animation: blink 1s step-end infinite;
             vertical-align: middle;
             margin-left: 2px;
@@ -453,21 +467,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 12px 16px;
             filter: grayscale(100%);
-            opacity: 0.6;
+            opacity: 0.5;
             transition: all 0.3s ease;
         }
 
         .logo-item:hover {
             filter: grayscale(0%);
-            opacity: 1;
+            opacity: 0.85;
         }
 
         .logo-item svg,
         .logo-item img {
-            max-width: 120px;
-            max-height: 48px;
+            max-width: 110px;
+            max-height: 44px;
             object-fit: contain;
         }
 
@@ -480,12 +494,29 @@
 
         .section-header {
             text-align: center;
-            max-width: 600px;
-            margin: 0 auto 64px;
+            max-width: 580px;
+            margin: 0 auto 56px;
         }
 
         .section-header h2 {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: #1a365d;
+        }
+
+        .section-header p {
+            margin-top: 16px;
         }
 
         .services-grid {
@@ -611,10 +642,12 @@
         }
 
         .team-title {
-            color: #3b82f6;
-            font-weight: 600;
-            font-size: 0.875rem;
+            color: #2c5282;
+            font-weight: 500;
+            font-size: 0.8125rem;
             margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .team-bio {
@@ -631,12 +664,13 @@
         }
 
         .credential-tag {
-            background: #f1f5f9;
-            color: #64748b;
-            font-size: 0.75rem;
+            background: #edf2f7;
+            color: #4a5568;
+            font-size: 0.6875rem;
             padding: 4px 10px;
-            border-radius: 100px;
+            border-radius: 3px;
             font-weight: 500;
+            letter-spacing: 0.02em;
         }
 
         /* ================================
@@ -650,7 +684,11 @@
         .contact h2 {
             color: white;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .contact h2::after {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .contact > .container > p {
