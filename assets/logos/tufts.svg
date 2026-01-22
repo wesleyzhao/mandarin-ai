@@ -1,4 +1,4 @@
-<svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg">
-  <text x="0" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#3E8EDE">TUFTS</text>
-  <text x="0" y="34" font-family="Arial, sans-serif" font-size="9" fill="#3E8EDE">SCHOOL OF MEDICINE</text>
+<svg viewBox="0 0 140 50" xmlns="http://www.w3.org/2000/svg">
+  <text x="70" y="28" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#3E8EDE">Tufts</text>
+  <text x="70" y="44" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" letter-spacing="0.5" fill="#3E8EDE">MEDICINE</text>
 </svg>
