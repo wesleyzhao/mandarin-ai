@@ -7,7 +7,7 @@
     <meta name="description" content="Expert AI consulting for enterprises and PE firms. We offer workshops, bespoke software development, and strategic advising. Stanford, Yale, Y Combinator alumni.">
     <meta name="keywords" content="AI consulting, AI workshops, custom AI software, AI strategy, enterprise AI">
     <meta property="og:title" content="Mandarin AI | AI Workshops & Consulting">
-    <meta property="og:description" content="AI-focused technology services, education, and advising for enterprises and PE firms.">
+    <meta property="og:description" content="Technology services, education, and advising for enterprises and PE firms.">
     <meta property="og:type" content="website">
 
     <!-- Favicon and Touch Icons -->
@@ -587,11 +587,13 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         @media (min-width: 640px) {
             .team-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -849,7 +851,7 @@
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <h1>AI-focused technology services, education, and advising</h1>
+                        <h1>Technology services, education, and advising</h1>
                         <p>We help companies harness the power of AI through workshops, custom solutions, and guidance.</p>
                         <div class="hero-buttons">
                             <a href="#contact" class="btn btn-primary">Get in Touch</a>
@@ -1027,20 +1029,18 @@
                         </div>
                         -->
                     </div>
-                    <!-- Michael Rudy -->
+                    <!-- Michael Rudy - COMMENTED OUT
                     <div class="team-card fade-in">
                         <div class="team-photo">
                             <img src="https://media.licdn.com/dms/image/v2/D4E03AQECdSTskwe4HA/profile-displayphoto-scale_200_200/B4EZjN.Kz5HIAY-/0/1755802283980?e=2147483647&v=beta&t=f7htyNx8tjgg7VvDyyAFk5r_Ts_opqob4aFSZAX5qD0" alt="Michael Rudy">
                         </div>
                         <h3><a href="https://www.linkedin.com/in/michael-rudy-978292147/" target="_blank" rel="noopener">Michael Rudy</a></h3>
-                        <!-- BACKGROUND: <p class="team-bio">Technical and business expertise with a background in finance and technology.</p> -->
-                        <!-- BADGES:
                         <div class="team-credentials">
                             <span class="credential-tag">Yale</span>
                             <span class="credential-tag">Bridgewater</span>
                         </div>
-                        -->
                     </div>
+                    -->
                 </div>
             </div>
         </section>
@@ -1134,14 +1134,14 @@
 
                 // Type the request
                 const cmd2 = document.getElementById('cmd2');
-                await typeText(cmd2, 'Build me the exact product I need', 40);
+                await typeText(cmd2, 'Build me the product I need', 40);
 
                 await sleep(500);
 
                 // Show response
                 terminal.innerHTML = `
                     <div class="terminal-line"><span class="terminal-prompt">$ </span><span class="terminal-command">claude</span></div>
-                    <div class="terminal-line"><span class="terminal-prompt">&gt; </span><span class="terminal-command">Build me the exact product I need</span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">&gt; </span><span class="terminal-command">Build me the product I need</span></div>
                     <div class="terminal-line"><span class="terminal-response">Building<span class="loading-dots"></span></span></div>
                 `;
 
@@ -1150,7 +1150,7 @@
                 // Show completion
                 terminal.innerHTML = `
                     <div class="terminal-line"><span class="terminal-prompt">$ </span><span class="terminal-command">claude</span></div>
-                    <div class="terminal-line"><span class="terminal-prompt">&gt; </span><span class="terminal-command">Build me the exact product I need</span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">&gt; </span><span class="terminal-command">Build me the product I need</span></div>
                     <div class="terminal-line"><span class="terminal-response">Building... Done!</span></div>
                     <div class="terminal-line"><span class="terminal-response" style="color: #4ade80;">✓ Your product is ready.</span></div>
                 `;
