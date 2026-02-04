@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarin AI</title>
+    <meta name="description" content="Technology services and education for the AI era.">
+    <meta property="og:title" content="Mandarin AI">
+    <meta property="og:description" content="Technology services and education for the AI era.">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Serif', Georgia, serif;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #111827;
+            background-color: #ffffff;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        a {
+            color: #111827;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #0f766e;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .nav-container {
+                padding: 20px 24px;
+            }
+        }
+
+        .nav-logo {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 32px;
+        }
+
+        @media (min-width: 640px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            color: #6b7280;
+            font-size: 0.9375rem;
+            font-weight: 400;
+        }
+
+        .nav-links a:hover {
+            color: #111827;
+        }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (min-width: 640px) {
+            .nav-toggle { display: none; }
+        }
+
+        .nav-toggle span {
+            width: 20px;
+            height: 1px;
+            background: #111827;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 68px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 32px 24px;
+        }
+
+        .mobile-menu.active { display: block; }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-menu a {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .hero h1 {
+            margin-bottom: 32px;
+        }
+
+        .hero-link {
+            color: #0f766e;
+            font-size: 1rem;
+        }
+
+        .hero-link:hover {
+            color: #115e59;
+        }
+
+        /* Services */
+        .services {
+            padding: 140px 0;
+        }
+
+        .services h2 {
+            margin-bottom: 64px;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .service-list {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .service-item h3 {
+            margin-bottom: 8px;
+        }
+
+        .service-item p {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        /* Credentials */
+        .credentials {
+            padding: 80px 0;
+        }
+
+        .credentials-text {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        /* Team */
+        .team {
+            padding: 140px 0;
+        }
+
+        .team h2 {
+            margin-bottom: 64px;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .team-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        @media (min-width: 640px) {
+            .team-list {
+                flex-direction: row;
+                gap: 64px;
+            }
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .team-photo {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-info h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .team-info h3 a {
+            color: #111827;
+        }
+
+        .team-info h3 a:hover {
+            color: #0f766e;
+        }
+
+        .team-info p {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 140px 0 80px;
+        }
+
+        .contact-email {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 400;
+            color: #0f766e;
+        }
+
+        .contact-email:hover {
+            color: #115e59;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-copyright {
+            color: #9ca3af;
+            font-size: 0.8125rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            font-size: 0.8125rem;
+        }
+
+        .footer-links a:hover {
+            color: #111827;
+        }
+
+        /* Divider */
+        hr {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Mandarin AI</a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Technology services and education for the AI era</h1>
+                    <a href="#contact" class="hero-link">Get in touch &darr;</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <h2>What we do</h2>
+                <div class="service-list">
+                    <div class="service-item">
+                        <h3>Claude Workshops</h3>
+                        <p>Hands-on training for teams learning to work with AI.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Secure Deployments</h3>
+                        <p>Enterprise-grade Claude infrastructure within your compliance requirements.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Strategic Guidance</h3>
+                        <p>Practical advice on AI adoption and technology evaluation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="credentials">
+            <div class="container">
+                <p class="credentials-text">Our team comes from Stanford, Yale, Bridgewater, and Y Combinator.</p>
+            </div>
+        </section>
+
+        <section class="team" id="team">
+            <div class="container">
+                <h2>Our team</h2>
+                <div class="team-list">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQGkaUUF3GZRag/profile-displayphoto-shrink_200_200/B56ZZEPrFpHQAc-/0/1744901682296?e=2147483647&v=beta&t=3WT3ox0mtEmn97zx6M1kG3UHbrijUSBpVjhlDg4q8O8" alt="Wesley Zhao">
+                        </div>
+                        <div class="team-info">
+                            <h3><a href="https://www.linkedin.com/in/wesleyzhao/" target="_blank" rel="noopener">Wesley Zhao</a></h3>
+                            <p>Stanford GSB, Bridgewater</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/C4E03AQEiJt7Knr5pPQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1632447376235?e=2147483647&v=beta&t=XuaxQVk1AIjNYtq4EIIgUe4WJeRkqdWCFaanH-HSrcg" alt="Henry Liu">
+                        </div>
+                        <div class="team-info">
+                            <h3><a href="https://www.linkedin.com/in/liuhenry/" target="_blank" rel="noopener">Henry Liu</a></h3>
+                            <p>Y Combinator, Stanford</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E03AQEbhE0biJn9Mg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1673893173347?e=1770854400&v=beta&t=4ARpyhcFuEOmtisDBHJqD1UZuukRJKCNfQMebFZoneg" alt="Akiff Premjee, MD">
+                        </div>
+                        <div class="team-info">
+                            <h3><a href="https://www.linkedin.com/in/akiff-premjee/" target="_blank" rel="noopener">Akiff Premjee, MD</a></h3>
+                            <p>Mount Sinai, UPenn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <a href="mailto:hello@themandarinteam.com" class="contact-email">hello@themandarinteam.com</a>
+            </div>
+        </section>
+
+        <hr>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <p class="footer-copyright">&copy; 2025 Mandarin AI</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

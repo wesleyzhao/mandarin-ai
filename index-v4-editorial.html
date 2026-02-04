@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarin AI | AI Advisory</title>
+    <meta name="description" content="Education, deployment, and guidance for organizations working with AI.">
+    <meta property="og:title" content="Mandarin AI | AI Advisory">
+    <meta property="og:description" content="Education, deployment, and guidance for organizations working with AI.">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.0625rem;
+            line-height: 1.75;
+            color: #0a0a0a;
+            background-color: #ffffff;
+        }
+
+        h1, h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+
+        h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        a {
+            color: #0a0a0a;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #991b1b;
+        }
+
+        .accent {
+            color: #991b1b;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .narrow {
+            max-width: 680px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .nav-container {
+                padding: 20px 24px;
+            }
+        }
+
+        .nav-logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #0a0a0a;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #525252;
+        }
+
+        .nav-links a:hover {
+            color: #0a0a0a;
+        }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-toggle { display: none; }
+        }
+
+        .nav-toggle span {
+            width: 20px;
+            height: 1px;
+            background: #0a0a0a;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 32px 24px;
+        }
+
+        .mobile-menu.active { display: block; }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-menu a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #525252;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            margin-bottom: 32px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: #525252;
+            margin-bottom: 48px;
+            max-width: 520px;
+        }
+
+        .hero-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #991b1b;
+        }
+
+        .hero-link:hover {
+            color: #7f1d1d;
+        }
+
+        /* Services */
+        .services {
+            padding: 120px 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .services-header {
+            margin-bottom: 64px;
+        }
+
+        .services-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #525252;
+            margin-bottom: 8px;
+        }
+
+        .services-content {
+            max-width: 680px;
+        }
+
+        .service-block {
+            margin-bottom: 48px;
+        }
+
+        .service-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-block p {
+            color: #525252;
+        }
+
+        .service-block strong {
+            color: #0a0a0a;
+            font-weight: 500;
+        }
+
+        /* Team */
+        .team {
+            padding: 120px 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .team-header {
+            margin-bottom: 64px;
+        }
+
+        .team-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #525252;
+            margin-bottom: 8px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 48px;
+            }
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: #f5f5f5;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            margin-bottom: 4px;
+            font-size: 1rem;
+        }
+
+        .team-member h3 a {
+            color: #0a0a0a;
+        }
+
+        .team-member h3 a:hover {
+            color: #991b1b;
+        }
+
+        .team-member p {
+            color: #737373;
+            font-size: 0.875rem;
+        }
+
+        /* Footer / Contact */
+        .footer {
+            padding: 80px 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #525252;
+        }
+
+        .footer-email {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: #991b1b;
+        }
+
+        .footer-email:hover {
+            color: #7f1d1d;
+        }
+
+        .footer-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .footer-meta {
+                text-align: right;
+            }
+        }
+
+        .footer-copyright {
+            color: #a3a3a3;
+            font-size: 0.8125rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-links {
+                justify-content: flex-end;
+            }
+        }
+
+        .footer-links a {
+            color: #a3a3a3;
+            font-size: 0.8125rem;
+        }
+
+        .footer-links a:hover {
+            color: #0a0a0a;
+        }
+
+        /* Credentials note */
+        .credentials-note {
+            padding: 48px 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .credentials-note p {
+            color: #737373;
+            font-size: 0.9375rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Mandarin AI</a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1><span class="accent">AI</span> Advisory</h1>
+                    <p class="hero-subtitle">Education, deployment, and guidance for organizations working with AI.</p>
+                    <a href="#contact" class="hero-link">Get in touch</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="services-header">
+                    <p class="services-label">What We Do</p>
+                    <h2>Services</h2>
+                </div>
+                <div class="services-content">
+                    <div class="service-block">
+                        <p><strong>We run workshops.</strong> Hands-on training for executives and teams learning to work with Claude and other AI tools.</p>
+                    </div>
+                    <div class="service-block">
+                        <p><strong>We deploy infrastructure.</strong> Enterprise-grade AI systems within your security and compliance requirements.</p>
+                    </div>
+                    <div class="service-block">
+                        <p><strong>We advise.</strong> Practical guidance on AI adoption, technology evaluation, and organizational readiness.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team" id="team">
+            <div class="container">
+                <div class="team-header">
+                    <p class="team-label">Who We Are</p>
+                    <h2>Our Team</h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQGkaUUF3GZRag/profile-displayphoto-shrink_200_200/B56ZZEPrFpHQAc-/0/1744901682296?e=2147483647&v=beta&t=3WT3ox0mtEmn97zx6M1kG3UHbrijUSBpVjhlDg4q8O8" alt="Wesley Zhao">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/wesleyzhao/" target="_blank" rel="noopener">Wesley Zhao</a></h3>
+                        <p>Stanford GSB, Bridgewater</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/C4E03AQEiJt7Knr5pPQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1632447376235?e=2147483647&v=beta&t=XuaxQVk1AIjNYtq4EIIgUe4WJeRkqdWCFaanH-HSrcg" alt="Henry Liu">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/liuhenry/" target="_blank" rel="noopener">Henry Liu</a></h3>
+                        <p>Y Combinator, Stanford</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E03AQEbhE0biJn9Mg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1673893173347?e=1770854400&v=beta&t=4ARpyhcFuEOmtisDBHJqD1UZuukRJKCNfQMebFZoneg" alt="Akiff Premjee, MD">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/akiff-premjee/" target="_blank" rel="noopener">Akiff Premjee, MD</a></h3>
+                        <p>Mount Sinai, UPenn</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="credentials-note">
+            <div class="container">
+                <p>We're a team from Stanford, Yale, Bridgewater, and Y Combinator.</p>
+            </div>
+        </div>
+
+        <footer class="footer" id="contact">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-contact">
+                        <p class="footer-label">Contact</p>
+                        <a href="mailto:hello@themandarinteam.com" class="footer-email">hello@themandarinteam.com</a>
+                    </div>
+                    <div class="footer-meta">
+                        <p class="footer-copyright">&copy; 2025 Mandarin AI</p>
+                        <div class="footer-links">
+                            <a href="#">Privacy</a>
+                            <a href="#">Terms</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

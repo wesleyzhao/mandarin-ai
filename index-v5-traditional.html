@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarin AI | AI Advisory</title>
+    <meta name="description" content="AI advisory for thoughtful organizations. Education, deployment, and guidance.">
+    <meta property="og:title" content="Mandarin AI | AI Advisory">
+    <meta property="og:description" content="AI advisory for thoughtful organizations. Education, deployment, and guidance.">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'EB Garamond', Georgia, serif;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #1c1917;
+            background-color: #f9f8f6;
+        }
+
+        h1, h2, h3 {
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        a {
+            color: #1c1917;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #14532d;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        .small-caps {
+            font-variant: small-caps;
+            letter-spacing: 0.05em;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(249, 248, 246, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .nav-container {
+                padding: 20px 24px;
+            }
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #1c1917;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 32px;
+        }
+
+        @media (min-width: 640px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            font-size: 0.9375rem;
+            color: #57534e;
+        }
+
+        .nav-links a:hover {
+            color: #1c1917;
+        }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (min-width: 640px) {
+            .nav-toggle { display: none; }
+        }
+
+        .nav-toggle span {
+            width: 20px;
+            height: 1px;
+            background: #1c1917;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: rgba(249, 248, 246, 0.98);
+            padding: 24px;
+        }
+
+        .mobile-menu.active { display: block; }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-menu a {
+            font-size: 1rem;
+            color: #57534e;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            margin-bottom: 16px;
+        }
+
+        .hero-tagline {
+            font-size: 1.125rem;
+            color: #57534e;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .hero-cta {
+            font-size: 0.9375rem;
+            color: #14532d;
+            border-bottom: 1px solid #14532d;
+            padding-bottom: 2px;
+        }
+
+        .hero-cta:hover {
+            color: #166534;
+            border-color: #166534;
+        }
+
+        /* Divider */
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: #d6d3d1;
+            margin: 0 auto;
+        }
+
+        /* Services */
+        .services {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 0.8125rem;
+            color: #78716c;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            margin-bottom: 56px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px 64px;
+            }
+        }
+
+        .service-item h3 {
+            margin-bottom: 8px;
+        }
+
+        .service-item p {
+            color: #57534e;
+            font-size: 0.9375rem;
+        }
+
+        /* Team */
+        .team {
+            padding: 100px 0;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: #e7e5e4;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            margin-bottom: 4px;
+            font-size: 1.0625rem;
+        }
+
+        .team-member h3 a {
+            color: #1c1917;
+        }
+
+        .team-member h3 a:hover {
+            color: #14532d;
+        }
+
+        .team-member p {
+            color: #78716c;
+            font-size: 0.875rem;
+        }
+
+        /* Credentials */
+        .credentials {
+            padding: 64px 0;
+            text-align: center;
+        }
+
+        .credentials-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .credentials-logos img,
+        .credentials-logos svg {
+            max-width: 80px;
+            max-height: 32px;
+            filter: grayscale(100%);
+            opacity: 0.4;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 24px;
+        }
+
+        .contact-email {
+            font-size: 1.25rem;
+            color: #14532d;
+        }
+
+        .contact-email:hover {
+            color: #166534;
+        }
+
+        .contact-location {
+            margin-top: 16px;
+            color: #a8a29e;
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 32px 0;
+            border-top: 1px solid #e7e5e4;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-copyright {
+            color: #a8a29e;
+            font-size: 0.8125rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: #a8a29e;
+            font-size: 0.8125rem;
+        }
+
+        .footer-links a:hover {
+            color: #1c1917;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Mandarin AI</a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Inquiries</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Inquiries</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Mandarin AI</h1>
+                    <p class="hero-tagline">AI advisory for thoughtful organizations</p>
+                    <a href="#contact" class="hero-cta">Inquiries</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="services" id="services">
+            <div class="container">
+                <p class="section-label small-caps">Services</p>
+                <h2 class="section-title">What We Do</h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <h3>AI Workshops</h3>
+                        <p>Training for executives and teams</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Secure Deployments</h3>
+                        <p>Enterprise AI infrastructure</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Strategic Advising</h3>
+                        <p>Guidance on AI adoption</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Technology Evaluation</h3>
+                        <p>Due diligence and assessment</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team" id="team">
+            <div class="container">
+                <p class="section-label small-caps">Team</p>
+                <h2 class="section-title">Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQGkaUUF3GZRag/profile-displayphoto-shrink_200_200/B56ZZEPrFpHQAc-/0/1744901682296?e=2147483647&v=beta&t=3WT3ox0mtEmn97zx6M1kG3UHbrijUSBpVjhlDg4q8O8" alt="Wesley Zhao">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/wesleyzhao/" target="_blank" rel="noopener">Wesley Zhao</a></h3>
+                        <p>Stanford GSB, Bridgewater</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/C4E03AQEiJt7Knr5pPQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1632447376235?e=2147483647&v=beta&t=XuaxQVk1AIjNYtq4EIIgUe4WJeRkqdWCFaanH-HSrcg" alt="Henry Liu">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/liuhenry/" target="_blank" rel="noopener">Henry Liu</a></h3>
+                        <p>Y Combinator, Stanford</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E03AQEbhE0biJn9Mg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1673893173347?e=1770854400&v=beta&t=4ARpyhcFuEOmtisDBHJqD1UZuukRJKCNfQMebFZoneg" alt="Akiff Premjee, MD">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/akiff-premjee/" target="_blank" rel="noopener">Akiff Premjee, MD</a></h3>
+                        <p>Mount Sinai, UPenn</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="credentials">
+            <div class="container">
+                <div class="credentials-logos">
+                    <img src="assets/logos/stanford.svg" alt="Stanford">
+                    <svg width="60" height="24" viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg">
+                        <text x="30" y="18" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#00356B">Yale</text>
+                    </svg>
+                    <img src="assets/logos/upenn.svg" alt="UPenn">
+                    <img src="assets/logos/ycombinator.svg" alt="Y Combinator">
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <p class="section-label small-caps">Inquiries</p>
+                <h2>Get in Touch</h2>
+                <a href="mailto:hello@themandarinteam.com" class="contact-email">hello@themandarinteam.com</a>
+                <p class="contact-location">San Francisco, California</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-copyright">&copy; 2025 Mandarin AI</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
