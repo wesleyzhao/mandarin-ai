@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarin AI | Agentic AI Advisory</title>
+    <meta name="description" content="Agentic AI advisory. Claude workshops, autonomous deployments, enterprise guidance.">
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Newsreader:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --white: #ffffff;
+            --off-white: #fafafa;
+            --black: #0a0a0a;
+            --gray: #525252;
+            --gray-light: #a3a3a3;
+            --gray-border: #e5e5e5;
+            --accent: #991b1b;
+            --accent-glow: rgba(153, 27, 27, 0.15);
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Newsreader', Georgia, serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            line-height: 1.75;
+            color: var(--black);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Subtle texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 9999;
+        }
+
+        h1, h2 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: clamp(3.5rem, 10vw, 7rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); }
+
+        h3 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        a {
+            color: var(--black);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover { color: var(--accent); }
+
+        .accent {
+            color: var(--accent);
+            text-shadow: 0 0 60px var(--accent-glow), 0 0 120px var(--accent-glow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 48px);
+        }
+
+        .narrow { max-width: 680px; }
+
+        /* Keyframe Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideRight {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes accentPulse {
+            0%, 100% { text-shadow: 0 0 60px var(--accent-glow), 0 0 120px var(--accent-glow); }
+            50% { text-shadow: 0 0 80px var(--accent-glow), 0 0 160px var(--accent-glow); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .nav-logo {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: opacity 0.2s;
+        }
+
+        .nav-logo:hover { opacity: 0.6; }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) { .nav-links { display: flex; } }
+
+        .nav-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--gray);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--black); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (min-width: 768px) { .nav-toggle { display: none; } }
+
+        .nav-toggle span { width: 20px; height: 1px; background: var(--black); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 24px;
+        }
+
+        .mobile-menu.active { display: block; }
+        .mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .mobile-menu a { font-size: 0.875rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* Hero */
+        .hero {
+            padding: 200px 0 160px;
+            position: relative;
+        }
+
+        .hero h1 {
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .hero h1 .accent {
+            animation: accentPulse 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray);
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .hero-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease forwards;
+            animation-delay: 0.6s;
+            position: relative;
+        }
+
+        .hero-link::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        .hero-link:hover::before {
+            width: calc(100% - 24px);
+        }
+
+        .hero-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .hero-link:hover::after { transform: translateX(6px); }
+
+        /* Services */
+        .services {
+            padding: 120px 0;
+            border-top: 1px solid var(--gray-border);
+            position: relative;
+        }
+
+        .services-header {
+            margin-bottom: 64px;
+            opacity: 0;
+        }
+
+        .services-header.visible {
+            opacity: 1;
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        .services-label {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            margin-bottom: 16px;
+        }
+
+        .services-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-block {
+            padding: 32px 0;
+            border-top: 1px solid var(--gray-border);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+
+        .service-block:nth-child(1).visible { transition-delay: 0.1s; }
+        .service-block:nth-child(2).visible { transition-delay: 0.2s; }
+        .service-block:nth-child(3).visible { transition-delay: 0.3s; }
+
+        .service-block:last-child { border-bottom: 1px solid var(--gray-border); }
+
+        .service-block::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.5s ease;
+        }
+
+        .service-block:hover::before {
+            width: 60px;
+        }
+
+        .service-block p {
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        .service-block strong {
+            font-weight: 500;
+            color: var(--black);
+            transition: color 0.3s ease;
+        }
+
+        .service-block:hover strong {
+            color: var(--accent);
+        }
+
+        /* Team */
+        .team {
+            padding: 120px 0;
+        }
+
+        .team-header {
+            margin-bottom: 64px;
+            opacity: 0;
+        }
+
+        .team-header.visible {
+            opacity: 1;
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+            max-width: 800px;
+        }
+
+        .team-member {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .team-member.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+
+        .team-member:nth-child(1).visible { transition-delay: 0.1s; }
+        .team-member:nth-child(2).visible { transition-delay: 0.2s; }
+        .team-member:nth-child(3).visible { transition-delay: 0.3s; }
+
+        .team-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: var(--gray-border);
+            position: relative;
+        }
+
+        .team-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 70%, rgba(153, 27, 27, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .team-member:hover .team-photo::after {
+            opacity: 1;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(1.05);
+            transition: all 0.5s ease;
+        }
+
+        .team-member:hover .team-photo img {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.03);
+        }
+
+        .team-member h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .team-member h3 a {
+            position: relative;
+        }
+
+        .team-member h3 a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .team-member h3 a:hover::after {
+            width: 100%;
+        }
+
+        .team-meta {
+            font-size: 0.8125rem;
+            color: var(--gray-light);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 120px 0;
+            border-top: 1px solid var(--gray-border);
+            opacity: 0;
+        }
+
+        .contact.visible {
+            opacity: 1;
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        .contact h2 { margin-bottom: 24px; }
+
+        .contact p {
+            color: var(--gray);
+            margin-bottom: 32px;
+            max-width: 400px;
+        }
+
+        .contact-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        .contact-link:hover::after {
+            width: 100%;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--gray-border);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer p { font-size: 0.75rem; color: var(--gray-light); }
+        .footer-links { display: flex; gap: 20px; }
+        .footer-links a { font-size: 0.75rem; color: var(--gray-light); }
+        .footer-links a:hover { color: var(--black); }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">Mandarin AI</a>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="nav-toggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1><span class="accent">Agentic</span> AI Advisory</h1>
+                <p class="hero-subtitle">Claude workshops. Autonomous deployments. Enterprise guidance.</p>
+                <a href="#contact" class="hero-link">Get in touch</a>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="services-header">
+                    <p class="services-label">What We Do</p>
+                    <h2>Services</h2>
+                </div>
+                <div class="services-content">
+                    <div class="service-block">
+                        <strong>Workshops</strong>
+                        <p>Claude training and AI agent development for your team.</p>
+                    </div>
+                    <div class="service-block">
+                        <strong>Deployment</strong>
+                        <p>Secure agentic AI infrastructure for enterprises.</p>
+                    </div>
+                    <div class="service-block">
+                        <strong>Advisory</strong>
+                        <p>Technology strategy and due diligence for AI investments.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team" id="team">
+            <div class="container">
+                <div class="team-header">
+                    <p class="services-label">Team</p>
+                    <h2>Who we are</h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQGkaUUF3GZRag/profile-displayphoto-shrink_200_200/B56ZZEPrFpHQAc-/0/1744901682296?e=2147483647&v=beta&t=3WT3ox0mtEmn97zx6M1kG3UHbrijUSBpVjhlDg4q8O8" alt="Wesley Zhao">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/wesleyzhao/" target="_blank" rel="noopener">Wesley Zhao</a></h3>
+                        <p class="team-meta">Stanford GSB, Bridgewater</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/C4E03AQEiJt7Knr5pPQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1632447376235?e=2147483647&v=beta&t=XuaxQVk1AIjNYtq4EIIgUe4WJeRkqdWCFaanH-HSrcg" alt="Henry Liu">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/liuhenry/" target="_blank" rel="noopener">Henry Liu</a></h3>
+                        <p class="team-meta">Y Combinator, Stanford</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E03AQEbhE0biJn9Mg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1673893173347?e=1770854400&v=beta&t=4ARpyhcFuEOmtisDBHJqD1UZuukRJKCNfQMebFZoneg" alt="Akiff Premjee, MD">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/akiff-premjee/" target="_blank" rel="noopener">Akiff Premjee, MD</a></h3>
+                        <p class="team-meta">Mount Sinai, Tufts Medicine</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>Contact</h2>
+                <p>We'd welcome the opportunity to discuss your needs.</p>
+                <a href="mailto:hello@themandarinteam.com" class="contact-link">hello@themandarinteam.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <p>&copy; 2025 Mandarin AI</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('.mobile-menu');
+        toggle.addEventListener('click', () => menu.classList.toggle('active'));
+        document.querySelectorAll('.mobile-menu a').forEach(l => l.addEventListener('click', () => menu.classList.remove('active')));
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.service-block, .team-member, .services-header, .team-header, .contact').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

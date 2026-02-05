@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarin AI | Agentic AI for the Enterprise</title>
+    <meta name="description" content="Agentic AI for the enterprise. Claude workshops, autonomous deployment, strategic guidance.">
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --white: #ffffff;
+            --cream: #faf9f7;
+            --navy: #0f172a;
+            --navy-light: #1e293b;
+            --gold: #c9a87c;
+            --gold-muted: #b8956a;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --gray-dark: #475569;
+            --border-light: #e2e8f0;
+            --border-dark: #334155;
+            --font-display: 'Spectral', Georgia, serif;
+            --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        h1 { font-size: clamp(2.75rem, 7vw, 4.5rem); }
+        h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+        h3 { font-size: 1.25rem; font-weight: 500; }
+
+        a { text-decoration: none; transition: color 0.2s, opacity 0.2s; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 48px);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            transition: background 0.3s;
+        }
+
+        .nav.dark { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px); }
+        .nav.light { background: rgba(250, 249, 247, 0.95); backdrop-filter: blur(8px); }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .nav-logo {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .nav.dark .nav-logo { color: var(--white); }
+        .nav.light .nav-logo { color: var(--navy); }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) { .nav-links { display: flex; } }
+
+        .nav-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav.dark .nav-links a { color: var(--gray-light); }
+        .nav.dark .nav-links a:hover { color: var(--white); }
+        .nav.light .nav-links a { color: var(--gray-dark); }
+        .nav.light .nav-links a:hover { color: var(--navy); }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (min-width: 768px) { .nav-toggle { display: none; } }
+
+        .nav-toggle span { width: 20px; height: 1px; transition: background 0.2s; }
+        .nav.dark .nav-toggle span { background: var(--white); }
+        .nav.light .nav-toggle span { background: var(--navy); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            padding: 24px;
+        }
+
+        .nav.dark + .mobile-menu { background: var(--navy); }
+        .nav.light + .mobile-menu { background: var(--cream); }
+
+        .mobile-menu.active { display: block; }
+        .mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .mobile-menu a { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* Hero - Dark */
+        .hero {
+            background: var(--navy);
+            color: var(--white);
+            padding: 180px 0 140px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle starfield/dot pattern */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, rgba(201, 168, 124, 0.4) 1px, transparent 0),
+                radial-gradient(1px 1px at 40px 70px, rgba(201, 168, 124, 0.3) 1px, transparent 0),
+                radial-gradient(1px 1px at 50px 160px, rgba(201, 168, 124, 0.3) 1px, transparent 0),
+                radial-gradient(1px 1px at 90px 40px, rgba(201, 168, 124, 0.25) 1px, transparent 0),
+                radial-gradient(1px 1px at 130px 80px, rgba(201, 168, 124, 0.35) 1px, transparent 0),
+                radial-gradient(1.5px 1.5px at 160px 120px, rgba(201, 168, 124, 0.4) 1px, transparent 0),
+                radial-gradient(1px 1px at 200px 30px, rgba(201, 168, 124, 0.3) 1px, transparent 0),
+                radial-gradient(1px 1px at 250px 90px, rgba(201, 168, 124, 0.25) 1px, transparent 0),
+                radial-gradient(1.5px 1.5px at 300px 60px, rgba(201, 168, 124, 0.35) 1px, transparent 0),
+                radial-gradient(1px 1px at 350px 120px, rgba(201, 168, 124, 0.3) 1px, transparent 0),
+                radial-gradient(1px 1px at 400px 40px, rgba(201, 168, 124, 0.4) 1px, transparent 0),
+                radial-gradient(1px 1px at 450px 100px, rgba(201, 168, 124, 0.25) 1px, transparent 0);
+            background-size: 500px 200px;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: twinkle 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-dark);
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.1s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-light);
+            margin-bottom: 48px;
+            max-width: 500px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.5s;
+            transition: color 0.3s ease, gap 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            color: var(--white);
+            gap: 14px;
+        }
+
+        .hero-cta::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta:hover::after { transform: translateX(4px); }
+
+        /* Services - Cream */
+        .services {
+            background: var(--cream);
+            color: var(--navy);
+            padding: 100px 0;
+        }
+
+        .services-header { margin-bottom: 56px; }
+
+        .section-label {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-muted);
+            margin-bottom: 12px;
+        }
+
+        .services-grid {
+            display: grid;
+            gap: 0;
+        }
+
+        .service-item {
+            padding: 32px 0;
+            border-top: 1px solid var(--border-light);
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 24px;
+            align-items: start;
+            transition: transform 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateX(8px);
+        }
+
+        .service-item:last-child { border-bottom: 1px solid var(--border-light); }
+
+        .service-number {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            color: var(--gold-muted);
+            padding-top: 4px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-item:hover .service-number {
+            color: var(--gold);
+            transform: scale(1.1);
+        }
+
+        .service-content h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--navy);
+            transition: color 0.3s ease;
+        }
+
+        .service-item:hover .service-content h3 {
+            color: var(--gold-muted);
+        }
+
+        .service-content p {
+            color: var(--gray-dark);
+            font-size: 0.9375rem;
+        }
+
+        /* Logos */
+        .logos {
+            background: var(--cream);
+            padding: 0 0 100px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logos-label {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+
+        .logos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px 48px;
+            align-items: center;
+        }
+
+        .logos-grid img {
+            height: 20px;
+            width: auto;
+            opacity: 0.5;
+            filter: grayscale(100%);
+            transition: opacity 0.3s;
+        }
+
+        .logos-grid img:hover { opacity: 0.8; }
+
+        /* Team - Cream */
+        .team {
+            background: var(--cream);
+            color: var(--navy);
+            padding: 100px 0;
+        }
+
+        .team-header { margin-bottom: 56px; }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 750px;
+        }
+
+        .team-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            margin-bottom: 16px;
+            overflow: hidden;
+            background: var(--border-light);
+            position: relative;
+        }
+
+        /* Gold tint overlay on hover */
+        .team-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(201, 168, 124, 0.3) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .team-member:hover .team-photo::after {
+            opacity: 1;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: filter 0.4s ease, transform 0.4s ease;
+        }
+
+        .team-member:hover .team-photo img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+
+        .team-member h3 {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .team-member h3 a { color: var(--navy); }
+        .team-member h3 a:hover { color: var(--gold-muted); }
+
+        .team-meta {
+            font-size: 0.8125rem;
+            color: var(--gray);
+        }
+
+        /* Contact - Cream */
+        .contact {
+            background: var(--cream);
+            color: var(--navy);
+            padding: 100px 0;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .contact h2 { margin-bottom: 20px; }
+
+        .contact p {
+            color: var(--gray-dark);
+            margin-bottom: 32px;
+            max-width: 380px;
+        }
+
+        .contact-link {
+            color: var(--gold-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 1px;
+            background: var(--navy);
+            transition: width 0.3s ease;
+        }
+
+        .contact-link:hover { color: var(--navy); }
+        .contact-link:hover::after { width: 100%; }
+
+        /* Footer - Dark */
+        .footer {
+            background: var(--navy);
+            color: var(--gray-light);
+            padding: 32px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer p { font-size: 0.75rem; }
+        .footer-links { display: flex; gap: 20px; }
+        .footer-links a { font-size: 0.75rem; color: var(--gray-light); }
+        .footer-links a:hover { color: var(--white); }
+    </style>
+</head>
+<body>
+    <nav class="nav dark" id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">Mandarin AI</a>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="nav-toggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Agentic AI for<br>the enterprise</h1>
+                <p class="hero-subtitle">Claude workshops. Autonomous deployment. Strategic guidance.</p>
+                <a href="#contact" class="hero-cta">Contact us</a>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="services-header animate-on-scroll">
+                    <p class="section-label">What We Do</p>
+                    <h2>Services</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-item animate-on-scroll">
+                        <span class="service-number">01</span>
+                        <div class="service-content">
+                            <h3>Claude & Agent Workshops</h3>
+                            <p>Hands-on training from prompt engineering to autonomous agent deployment for your team.</p>
+                        </div>
+                    </div>
+                    <div class="service-item animate-on-scroll">
+                        <span class="service-number">02</span>
+                        <div class="service-content">
+                            <h3>Agentic AI Deployment</h3>
+                            <p>Secure, governed implementation of Claude and OpenAI agent systems for enterprises.</p>
+                        </div>
+                    </div>
+                    <div class="service-item animate-on-scroll">
+                        <span class="service-number">03</span>
+                        <div class="service-content">
+                            <h3>Strategic Advisory</h3>
+                            <p>Technology due diligence and AI strategy for investment firms and portfolio companies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="logos">
+            <div class="container">
+                <p class="logos-label">Team Background</p>
+                <div class="logos-grid">
+                    <img src="../assets/logos/stanford.svg" alt="Stanford">
+                    <img src="../assets/logos/ycombinator.svg" alt="Y Combinator">
+                    <img src="../assets/logos/bridgewater.svg" alt="Bridgewater">
+                    <img src="../assets/logos/mountsinai.svg" alt="Mount Sinai">
+                    <img src="../assets/logos/tufts.svg" alt="Tufts Medicine">
+                    <img src="../assets/logos/oscar.svg" alt="Oscar Health">
+                </div>
+            </div>
+        </section>
+
+        <section class="team" id="team">
+            <div class="container">
+                <div class="team-header animate-on-scroll">
+                    <p class="section-label">Team</p>
+                    <h2>Who we are</h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member animate-on-scroll">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQGkaUUF3GZRag/profile-displayphoto-shrink_200_200/B56ZZEPrFpHQAc-/0/1744901682296?e=2147483647&v=beta&t=3WT3ox0mtEmn97zx6M1kG3UHbrijUSBpVjhlDg4q8O8" alt="Wesley Zhao">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/wesleyzhao/" target="_blank" rel="noopener">Wesley Zhao</a></h3>
+                        <p class="team-meta">Stanford GSB, Bridgewater</p>
+                    </div>
+                    <div class="team-member animate-on-scroll">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/C4E03AQEiJt7Knr5pPQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1632447376235?e=2147483647&v=beta&t=XuaxQVk1AIjNYtq4EIIgUe4WJeRkqdWCFaanH-HSrcg" alt="Henry Liu">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/liuhenry/" target="_blank" rel="noopener">Henry Liu</a></h3>
+                        <p class="team-meta">Y Combinator, Stanford</p>
+                    </div>
+                    <div class="team-member animate-on-scroll">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E03AQEbhE0biJn9Mg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1673893173347?e=1770854400&v=beta&t=4ARpyhcFuEOmtisDBHJqD1UZuukRJKCNfQMebFZoneg" alt="Akiff Premjee, MD">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/akiff-premjee/" target="_blank" rel="noopener">Akiff Premjee, MD</a></h3>
+                        <p class="team-meta">Mount Sinai, Tufts Medicine</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2 class="animate-on-scroll">Contact</h2>
+                <p class="animate-on-scroll">We'd welcome the opportunity to discuss your needs.</p>
+                <a href="mailto:hello@themandarinteam.com" class="contact-link animate-on-scroll">hello@themandarinteam.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <p>&copy; 2025 Mandarin AI</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('.mobile-menu');
+        toggle.addEventListener('click', () => menu.classList.toggle('active'));
+        document.querySelectorAll('.mobile-menu a').forEach(l => l.addEventListener('click', () => menu.classList.remove('active')));
+
+        // Nav color change on scroll
+        const navbar = document.getElementById('navbar');
+        const hero = document.querySelector('.hero');
+
+        function updateNav() {
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+            if (window.scrollY > heroBottom - 80) {
+                navbar.classList.remove('dark');
+                navbar.classList.add('light');
+            } else {
+                navbar.classList.remove('light');
+                navbar.classList.add('dark');
+            }
+        }
+
+        window.addEventListener('scroll', updateNav);
+        updateNav();
+
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add stagger delay based on element index within its section
+                    const siblings = entry.target.parentElement.querySelectorAll('.animate-on-scroll');
+                    const idx = Array.from(siblings).indexOf(entry.target);
+                    entry.target.style.transitionDelay = `${idx * 0.1}s`;
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
