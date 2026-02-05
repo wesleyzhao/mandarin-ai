@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarin AI | AI Advisory for Enterprises & Investment Firms</title>
+    <meta name="description" content="AI advisory and implementation for enterprises and investment firms. Technology due diligence, portfolio company support, secure deployments.">
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-darker: #0a0f1a;
+            --bg-card: #1e293b;
+            --text-light: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --gold: #d4a574;
+            --gold-muted: rgba(212, 165, 116, 0.15);
+            --font-display: 'Spectral', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-light);
+            background: var(--bg-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        h1 { font-size: clamp(2.25rem, 4.5vw, 3.5rem); font-weight: 400; }
+        h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+        h3 { font-size: 1.125rem; font-weight: 600; }
+
+        a { color: inherit; text-decoration: none; }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 56px);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-logo svg { width: 28px; height: 28px; }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 40px;
+        }
+
+        @media (min-width: 768px) { .nav-links { display: flex; } }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text-light); }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (min-width: 768px) { .nav-toggle { display: none; } }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 1.5px;
+            background: var(--text-light);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 69px;
+            left: 0;
+            right: 0;
+            background: var(--bg-dark);
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-menu.active { display: block; }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-menu a { color: var(--text-secondary); }
+
+        /* Hero */
+        .hero {
+            padding: 180px 0 120px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(212, 165, 116, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 720px;
+        }
+
+        .hero h1 { margin-bottom: 28px; }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            line-height: 1.75;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            padding: 14px 28px;
+            background: var(--text-light);
+            color: var(--bg-dark);
+            transition: opacity 0.2s;
+        }
+
+        .hero-cta:hover { opacity: 0.9; }
+
+        /* Credentials */
+        .credentials {
+            padding: 64px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .credentials-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .logo-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 32px 48px;
+        }
+
+        .logo-item {
+            opacity: 0.4;
+            filter: grayscale(100%) brightness(2);
+            transition: opacity 0.3s;
+        }
+
+        .logo-item:hover { opacity: 0.6; }
+
+        .logo-item img,
+        .logo-item svg {
+            height: 28px;
+            width: auto;
+            max-width: 100px;
+        }
+
+        /* Services */
+        .services {
+            padding: 120px 0;
+        }
+
+        .services-header {
+            margin-bottom: 64px;
+        }
+
+        .services-header h2 { margin-bottom: 16px; }
+
+        .services-header p {
+            color: var(--text-secondary);
+            max-width: 480px;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (min-width: 768px) {
+            .service-item {
+                grid-template-columns: 220px 1fr;
+                gap: 64px;
+            }
+        }
+
+        .service-item:last-child { border-bottom: 1px solid var(--border); }
+
+        .service-item h3 { color: var(--text-light); }
+
+        .service-item p {
+            color: var(--text-secondary);
+            max-width: 480px;
+            line-height: 1.75;
+        }
+
+        /* Team */
+        .team {
+            padding: 120px 0;
+            background: var(--bg-darker);
+        }
+
+        .team-header {
+            margin-bottom: 64px;
+        }
+
+        .team-header h2 { margin-bottom: 16px; }
+
+        .team-header p { color: var(--text-secondary); }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 48px;
+            max-width: 800px;
+        }
+
+        .team-member {}
+
+        .team-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: var(--bg-card);
+            position: relative;
+        }
+
+        .team-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .team-member:hover .team-photo::after {
+            border-color: var(--gold);
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: filter 0.4s;
+        }
+
+        .team-member:hover .team-photo img { filter: grayscale(0%); }
+
+        .team-member h3 {
+            font-size: 1.0625rem;
+            margin-bottom: 8px;
+        }
+
+        .team-member h3 a { transition: color 0.2s; }
+        .team-member h3 a:hover { color: var(--gold); }
+
+        .team-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .team-tags span {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 120px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .contact-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+
+        .contact h2 { margin-bottom: 12px; }
+
+        .contact p {
+            color: var(--text-secondary);
+            max-width: 380px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            padding: 14px 28px;
+            background: var(--text-light);
+            color: var(--bg-dark);
+            transition: opacity 0.2s;
+        }
+
+        .contact-btn:hover { opacity: 0.9; }
+
+        /* Footer */
+        .footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer p {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links { display: flex; gap: 24px; }
+
+        .footer-links a {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text-light); }
+
+        /* Fade */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="4" fill="#1e293b"/>
+                        <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="#f1f5f9" stroke-width="1.5" fill="none"/>
+                        <circle cx="16" cy="16" r="2.5" fill="#d4a574"/>
+                    </svg>
+                    Mandarin AI
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="nav-toggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>AI advisory for enterprises and investment firms</h1>
+                    <p class="hero-subtitle">Technology due diligence. Portfolio company support. Secure implementation.</p>
+                    <a href="#contact" class="hero-cta">Contact us</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="credentials">
+            <div class="container">
+                <p class="credentials-label">Team background</p>
+                <div class="logo-row">
+                    <div class="logo-item">
+                        <img src="../assets/logos/stanford.svg" alt="Stanford">
+                    </div>
+                    <div class="logo-item">
+                        <svg width="64" height="28" viewBox="0 0 64 28">
+                            <text x="32" y="21" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#ffffff">Yale</text>
+                        </svg>
+                    </div>
+                    <div class="logo-item">
+                        <img src="../assets/logos/upenn.svg" alt="UPenn">
+                    </div>
+                    <div class="logo-item">
+                        <img src="../assets/logos/ycombinator.svg" alt="Y Combinator">
+                    </div>
+                    <div class="logo-item">
+                        <svg width="130" height="28" viewBox="0 0 130 28">
+                            <text x="65" y="12" text-anchor="middle" font-family="Georgia, serif" font-size="10" letter-spacing="1.5" fill="#ffffff">BRIDGEWATER</text>
+                            <text x="65" y="23" text-anchor="middle" font-family="Georgia, serif" font-size="8" letter-spacing="1" fill="#94a3b8">ASSOCIATES</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="services-header">
+                    <h2>Services</h2>
+                    <p>We work with organizations navigating AI adoption and implementation.</p>
+                </div>
+                <div class="services-list">
+                    <div class="service-item fade-in">
+                        <h3>Technology Assessment</h3>
+                        <p>Due diligence and capability evaluation for investment decisions. We help you understand AI readiness, technical debt, and opportunity areas.</p>
+                    </div>
+                    <div class="service-item fade-in">
+                        <h3>Implementation</h3>
+                        <p>Secure deployments of Claude and OpenAI for portfolio companies and enterprises. Custom solutions built with appropriate governance and compliance frameworks.</p>
+                    </div>
+                    <div class="service-item fade-in">
+                        <h3>Strategic Advisory</h3>
+                        <p>Board-level guidance on AI adoption. We help leadership teams evaluate opportunities, plan implementation, and understand the evolving landscape.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team" id="team">
+            <div class="container">
+                <div class="team-header">
+                    <h2>Team</h2>
+                    <p>Backgrounds in technology, finance, and healthcare.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member fade-in">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQGkaUUF3GZRag/profile-displayphoto-shrink_200_200/B56ZZEPrFpHQAc-/0/1744901682296?e=2147483647&v=beta&t=3WT3ox0mtEmn97zx6M1kG3UHbrijUSBpVjhlDg4q8O8" alt="Wesley Zhao">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/wesleyzhao/" target="_blank" rel="noopener">Wesley Zhao</a></h3>
+                        <div class="team-tags">
+                            <span>Stanford GSB</span>
+                            <span>Bridgewater</span>
+                        </div>
+                    </div>
+                    <div class="team-member fade-in">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/C4E03AQEiJt7Knr5pPQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1632447376235?e=2147483647&v=beta&t=XuaxQVk1AIjNYtq4EIIgUe4WJeRkqdWCFaanH-HSrcg" alt="Henry Liu">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/liuhenry/" target="_blank" rel="noopener">Henry Liu</a></h3>
+                        <div class="team-tags">
+                            <span>Y Combinator</span>
+                            <span>Stanford</span>
+                        </div>
+                    </div>
+                    <div class="team-member fade-in">
+                        <div class="team-photo">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E03AQEbhE0biJn9Mg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1673893173347?e=1770854400&v=beta&t=4ARpyhcFuEOmtisDBHJqD1UZuukRJKCNfQMebFZoneg" alt="Akiff Premjee, MD">
+                        </div>
+                        <h3><a href="https://www.linkedin.com/in/akiff-premjee/" target="_blank" rel="noopener">Akiff Premjee, MD</a></h3>
+                        <div class="team-tags">
+                            <span>Mount Sinai</span>
+                            <span>Tufts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="contact-inner">
+                    <div>
+                        <h2>Get in touch</h2>
+                        <p>We'd welcome the opportunity to discuss your needs.</p>
+                    </div>
+                    <a href="mailto:hello@themandarinteam.com" class="contact-btn">Contact us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <p>&copy; 2025 Mandarin AI</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('.mobile-menu');
+        toggle.addEventListener('click', () => menu.classList.toggle('active'));
+        document.querySelectorAll('.mobile-menu a').forEach(l => l.addEventListener('click', () => menu.classList.remove('active')));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
